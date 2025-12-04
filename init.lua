@@ -164,6 +164,10 @@ vim.opt.scrolloff = 10
 -- views can only be fully collapsed with the global statusline
 vim.opt.laststatus = 3
 
+-- Reselect after indent
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -707,13 +711,13 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         c = { 'clangd' },
-        javascript = { 'prettierd', 'prettier' },
-        javascriptreact = { 'prettierd', 'prettier' },
-        typescript = { 'prettierd', 'prettier' },
-        typescriptreact = { 'prettierd', 'prettier' },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
 
-        html = { 'prettierd', 'prettier' },
-        css = { 'prettierd', 'prettier' },
+        html = { 'prettierd', 'prettier', stop_after_first = true },
+        css = { 'prettierd', 'prettier', stop_after_first = true },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
