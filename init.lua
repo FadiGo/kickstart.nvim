@@ -838,7 +838,13 @@ require('lazy').setup({
             group_index = 0,
           },
           { name = 'nvim_lsp' },
-          { name = 'luasnip' },
+          {
+            name = 'luasnip',
+            entry_filter = function()
+              local context = require 'cmp.config.context'
+              return not (context.in_treesitter_capture 'comment' or context.in_syntax_group 'Comment')
+            end,
+          },
           { name = 'path' },
         },
       }
