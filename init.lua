@@ -390,18 +390,60 @@ require('lazy').setup({
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
-        -- You can put your default mappings / updates / etc. in here
-        --  All the info you're looking for is in `:help telescope.setup()`
-        --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        -- pickers = {}
+        defaults = {
+          prompt_prefix = '   ',
+          selection_caret = '❯ ',
+          path_display = { 'smart' },
+
+          sorting_strategy = 'ascending',
+          layout_strategy = 'horizontal',
+          layout_config = {
+            horizontal = {
+              prompt_position = 'top',
+              preview_width = 0.55,
+            },
+            width = 0.9,
+            height = 0.85,
+          },
+
+          file_ignore_patterns = {
+            'node_modules',
+            '.git/',
+            'dist/',
+            'build/',
+            '%.lock',
+          },
+
+          mappings = {
+            i = {
+              ['<C-j>'] = 'move_selection_next',
+              ['<C-k>'] = 'move_selection_previous',
+              ['<Esc>'] = 'close',
+            },
+          },
+        },
+
+        pickers = {
+          find_files = {
+            hidden = true,
+          },
+          live_grep = {
+            additional_args = function()
+              return { '--hidden', '--glob', '!.git/*' }
+            end,
+          },
+          buffers = {
+            sort_mru = true,
+            ignore_current_buffer = true,
+          },
+        },
+
         extensions = {
-          ['ui-select'] = {
-            require('telescope.themes').get_dropdown(),
+          fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = 'smart_case',
           },
         },
       }
